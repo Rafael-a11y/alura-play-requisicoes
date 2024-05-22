@@ -1,9 +1,15 @@
-async function buscarVideos()
-{
-    const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
-    const resposta = await fetch(endpoint);
-    const videos =  await resposta.json();
-    return videos.videos;
+async function buscarVideos() {
+    try 
+    {
+        const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
+        const resposta = await fetch(endpoint);
+        const json = await resposta.json();
+        return json.videos;
+    }
+    catch(erro)
+    {
+        console.log(erro.message);
+    }
 }
 
-export const conectaApi = {buscarVideos};
+export const conectaApi = { buscarVideos };
