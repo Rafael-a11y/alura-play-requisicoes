@@ -1,5 +1,7 @@
 import { conectaApi } from "./conectaApi.js";
 const formulario = document.querySelector("[data-formulario]");
+const falsy = [NaN, undefined, 0, -0, "", null, false];
+
 
 async function criarVideo(evento)
 {
@@ -11,15 +13,17 @@ async function criarVideo(evento)
 
     const dadosDoVideo = 
     {
-        imagem: imagem,
-        url: url,
         titulo: titulo,
-        descricao: descricao
+        descricao: descricao,
+        url: url,
+        imagem: imagem
     };
 
-    const resposta = await conectaApi.postarVideo(titulo, descricao, url, imagem);
-    alert(resposta);
-    window.location.href = "../pages/envio-concluido.html";
+    const resposta = await conectaApi.postarVideo(dadosDoVideo);
+    if(falsy.every(valorIndesejado => valorIndesejado != resposta))
+    {
+        window.location.href = "../pages/envio-concluido.html";
+    }
 
 }
 

@@ -1,10 +1,14 @@
+const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
+
 async function buscarVideos() {
     try 
     {
-        const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
         const resposta = await fetch(endpoint);
-        const json = await resposta.json();
-        return json.videos;
+        if(conexao.ok)
+        {
+            const json = await resposta.json();
+            return json.videos;
+        }
     }
     catch(erro)
     {
@@ -12,18 +16,10 @@ async function buscarVideos() {
     }
 }
 
-async function postarVideo(titulo, descricao, url, imagem)
+async function postarVideo(video)
 {
     try
     {
-        const videoASerPostado = 
-        {
-            titulo: titulo,
-            descricao: descricao,
-            url: url,
-            imagem: imagem
-        };
-
         const options = 
         {
             method: "POST",
@@ -31,13 +27,15 @@ async function postarVideo(titulo, descricao, url, imagem)
             {
                 "Content-type": "application/json"
             },
-            body : JSON.stringify(videoASerPostado)
+            body : JSON.stringify(video)
         };
 
-        const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
         const conexao = await fetch(endpoint, options);
-        const resposta = await conexao.json();
-        return resposta;
+        if(conexao.ok)
+            {
+                const resposta = await conexao.json();
+                return resposta;
+            }
     }
     catch(erro)
     {
