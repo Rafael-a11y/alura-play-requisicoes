@@ -4,7 +4,7 @@ async function buscarVideos() {
     try 
     {
         const resposta = await fetch(endpoint);
-        if(conexao.ok)
+        if(resposta.ok)
         {
             const json = await resposta.json();
             return json.videos;
@@ -30,10 +30,10 @@ async function postarVideo(video)
             body : JSON.stringify(video)
         };
 
-        const conexao = await fetch(endpoint, options);
-        if(conexao.ok)
+        const con= await fetch(endpoint, options);
+        if(con.ok)
             {
-                const resposta = await conexao.json();
+                const resposta = await con.json();
                 return resposta;
             }
     }
