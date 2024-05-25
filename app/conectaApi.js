@@ -1,4 +1,4 @@
-const endpoint = "https://aluraplay-requisicoes-navy.vercel.app/db.json/";
+const endpoint = "https://alura-play-requisicoes-delta.vercel.app/db.json";
 
 async function buscarVideos() {
     try 
