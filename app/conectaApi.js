@@ -1,4 +1,4 @@
-const endpoint = "https://alura-play-requisicoes-delta.vercel.app/db.json";
+const endpoint = "https://apifake-phi.vercel.app/videos";
 
 async function buscarVideos() {
     try 
@@ -7,7 +7,7 @@ async function buscarVideos() {
         if(resposta.ok)
         {
             const json = await resposta.json();
-            return json.videos;
+            return json;
         }
     }
     catch(erro)
