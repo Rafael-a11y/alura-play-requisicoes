@@ -1,12 +1,12 @@
 import { conectaApi } from "./conectaApi.js";
+import gerarMensagemDeErro from "./erro.js";
 
 const lista = document.querySelector("[data-lista]");
 
-function construirCards(video)
-{
+export default function construirCards(video) {
     const listItem = document.createElement("li");
     listItem.classList.add("videos__item");
-    listItem.innerHTML = 
+    listItem.innerHTML =
         `<iframe width="100%" height="72%" src="${video.url}"
         title="${video.titulo}" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -20,12 +20,21 @@ function construirCards(video)
     return listItem;
 }
 
-async function listarVideos()
+async function listarVideos() 
 {
-    const videosDaApi = await conectaApi.buscarVideos();
-    videosDaApi.forEach(video => 
+    try
+     {
+        const videosDaApi = await conectaApi.buscarVideos();
+        videosDaApi.forEach(video => {
+            lista.appendChild(construirCards(video));
+        });
+    }
+    catch(erro)
     {
-        lista.appendChild(construirCards(video));
-    });
+        gerarMensagemDeErro(erro, lista);
+    }
 }
- listarVideos();
+
+listarVideos();
+
+export const exibirVideos = { listarVideos };
